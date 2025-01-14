@@ -2,5 +2,13 @@
     "cSpell.words": [
         "Alimama",
         "tailwindcss"
-    ]
+    ],
+    "css.validate": false, 
+    "tailwindCSS.includeLanguages": { 
+        "plaintext": "html", 
+        "javascript": "javascript", 
+        "javascriptreact": "javascriptreact", 
+        "typescript": "typescript", 
+        "typescriptreact": "typescriptreact"
+    }    
 }
