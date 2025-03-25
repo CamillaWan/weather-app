@@ -1,7 +1,8 @@
 {
     "cSpell.words": [
         "Alimama",
-        "tailwindcss"
+        "tailwindcss",
+        "TTFB"
     ],
     "css.validate": false, 
     "tailwindCSS.includeLanguages": { 
