@@ -1,6 +1,6 @@
 const WeatherCard = () => {
     return(
-    <div className="w-4/5 h-4/5 mx-auto rounded-3xl bg-white opacity-100 overflow-hidden shadow-lg">
+    <div className="bg-white opacity-100 relative z-10 w-4/5 h-4/5 mx-auto isolation-auto rounded-3xl overflow-hidden shadow-lg font-alimama">
         WeatherCard
     </div>
     )
