@@ -3,7 +3,7 @@ import WeatherCard from './components/WeatherCard';
 
 
 const App = () => (
-  <BackgroundImage>
+  <BackgroundImage className="h-screen w-full relative isolation-auto">
    <WeatherCard />
   </BackgroundImage>
 )

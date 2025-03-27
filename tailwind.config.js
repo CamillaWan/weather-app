@@ -6,7 +6,7 @@ module.exports = {
 
     },
     colors: {
-
+      'white': "#f5f3ff",
     },
     extend: {
       backgroundImage: {
@@ -18,7 +18,8 @@ module.exports = {
       },
       backgroundSize: {
         'auto': 'auto',
-      }
+      },
+      
     },
   },
   plugins: [],
