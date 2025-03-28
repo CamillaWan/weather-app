@@ -1,4 +1,4 @@
-import CityName from "../../../CityName";
+import Name from "../../../Name";
 import TemperatureRange from "../../../TemperatureRange";
 import WeatherIcon from "../../../WeatherIcon";
 import Date from "../../../Date";
@@ -8,7 +8,7 @@ import Meta from "./components/Meta";
 const CurrentCity = () => (
     <div>
         <Date />
-        <CityName />
+        <Name />
         <Temperature />
         <TemperatureRange />
         <WeatherIcon />

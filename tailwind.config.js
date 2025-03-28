@@ -10,7 +10,7 @@ module.exports = {
     },
     extend: {
       backgroundImage: {
-      'gradient-to-tl': 'linear-gradient(to top left,rgb(73, 93, 245),rgb(143, 136, 246))',
+      'gradient-to-tl': 'linear-gradient(to top left,rgb(73, 93, 245),rgb(163, 172, 254))',
       'bg-cloud': "url('./assets/bg.png')",
       },
       backgroundPosition: {

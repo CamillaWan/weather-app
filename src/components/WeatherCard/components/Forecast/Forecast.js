@@ -1,5 +1,12 @@
+import DayofWeek from "./components/DayofWeek";
+
 const Forecast = () => (
-    <div>Forecast</div>
+    <div>
+        <DayofWeek />
+        <DayofWeek />
+        <DayofWeek />
+        <DayofWeek />
+    </div>
 )
 
 export default Forecast;
