@@ -1,9 +1,7 @@
-const BackgroundImage = ({ className, children }) => (
+const BackgroundImage = ({imageUrl, alt="Descriptive alt text", className, children }) => (
   <div className={className}>    
-    <div className="absolute inset-0 bg-gradient-to-tl flex justify-center items-center z-0 opacity-100"> 
-      <div className="absolute inset-0 bg-bg-cloud bg-no-repeat bg-auto bg-bottom-right z-1 opacity-100" alt="cloud"></div>
-      {children}
-    </div>
+    <img src={imageUrl} alt = {alt} className="absolute bottom-0 right-0 z-1 opacity-100" />
+    {children} 
   </div>
 );
 
