@@ -6,19 +6,19 @@ module.exports = {
 
     },
     colors: {
-      'white': "#f5f3ff",
+      'white': '#f5f3ff',
+      'slate': '#e2e8f0',
+      
     },
     extend: {
       backgroundImage: {
-      'gradient-to-tl': 'linear-gradient(to top left,rgb(73, 93, 245),rgb(163, 172, 254))',
+      'gradient-to-l': 'linear-gradient(to left,rgb(73, 93, 245),rgb(145, 155, 251))',
+      'gradient-to-tl': 'linear-gradient(to top left,rgb(56, 82, 250),rgb(145, 162, 252))',
       },
       backgroundPosition: {
         'bottom-right': 'bottom right',
       },
-      backgroundSize: {
-        'auto': 'auto',
-      },
-      
+     
     },
   },
   plugins: [],
