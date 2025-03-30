@@ -1,5 +1,7 @@
-const Name = () => (
-    <div>Name</div>
+const Name = ({value,className}) => (
+    <div className= {className}>
+        {value}
+    </div>
 );
 
 export default Name;
