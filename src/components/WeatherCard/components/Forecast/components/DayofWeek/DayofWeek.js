@@ -3,12 +3,12 @@ import TemperatureRange from "../../../../../TemperatureRange";
 import WeatherIcon from "../../../../../WeatherIcon";
 import Date from "../../../../../Date";
 
-const DayofWeek = () => {
+const DayofWeek = ({imageUrl, alt}) => {
     return (
-        <div>
+        <div classname='flex flex-col items-center justify-between'>
           <Name />
           <Date />
-          <WeatherIcon />
+          <WeatherIcon imageUrl={imageUrl} alt={alt}/>
           <TemperatureRange />
         </div> 
     );

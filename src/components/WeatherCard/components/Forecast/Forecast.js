@@ -1,11 +1,11 @@
 import DayofWeek from "./components/DayofWeek";
-
+import rain from "../../../../../src/assets/weather_icon/Rain.png";
 const Forecast = () => (
     <div className="flex">
-        <DayofWeek />
-        <DayofWeek />
-        <DayofWeek />
-        <DayofWeek />
+        <DayofWeek imageUrl={rain} />
+        <DayofWeek imageUrl={cloudy_day} />
+        <DayofWeek imageUrl={cloudy} />
+        <DayofWeek imageUrl={sunny} />
     </div>
 )
 
