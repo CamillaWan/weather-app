@@ -8,6 +8,7 @@ module.exports = {
     colors: {
       'white': '#f5f3ff',
       'slate': '#e2e8f0',
+      'purple': '#742bfc',
       
     },
     extend: {
@@ -18,7 +19,7 @@ module.exports = {
       backgroundPosition: {
         'bottom-right': 'bottom right',
       },
-     
+      
     },
   },
   plugins: [],
