@@ -1,9 +1,9 @@
 import Image from '../../../Image'
 
-const MetaItem = ({className, imageUrl, value}) => {
+const MetaItem = ({className, imageUrl, alt, value}) => {
     return ( 
         <div className='flex flex-col justify-center'>
-            <Image imageUrl={imageUrl} className={className}/>
+            <Image imageUrl={imageUrl} alt={alt} className={className}/>
             {value}
         </div>
      );
