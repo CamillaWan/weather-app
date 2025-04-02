@@ -15,7 +15,7 @@ const WeatherCard = () => {
         <div className="row-span-1 col-span-2 p-2 m-6 ">
             <SearchBar />
         </div>
-        <div className="row-span-2 col-span-4 border-8 m-6">
+        <div className="row-span-2 col-span-4 m-6">
             <OtherCities /> 
         </div>
              
