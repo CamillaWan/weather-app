@@ -1,5 +1,5 @@
 const Name = ({value,className}) => (
-    <div className= {className}>
+    <div className= {`${className} flex justify-center`}>
         {value}
     </div>
 );
