@@ -1,5 +1,5 @@
 const Date = ({value, className}) => (
-    <div className={className}>
+    <div className={`${className} flex justify-center`}>
         {value}
     </div>
 );

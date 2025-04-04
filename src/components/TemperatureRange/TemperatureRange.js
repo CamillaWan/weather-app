@@ -1,5 +1,5 @@
 const TemperatureRange = ({value, className}) => (
-    <div className={className}>
+    <div className={`${className} flex justify-center`}>
         {value}°C
     </div>
 );
