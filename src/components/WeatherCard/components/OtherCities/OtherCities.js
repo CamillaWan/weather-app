@@ -5,7 +5,7 @@ import rain from '../../../../assets/weather_icon/Rain.png';
 import snow from '../../../../assets/weather_icon/Snow.png';
 
 const OtherCities = () => (
-    <div className='flex justify-between text-white'>
+    <div className='flex justify-between text-white h-full'>
         <City className='bg-Sydney' imageUrl={sunny} name='Sydney' temperatureRange='28~32'/>
         <City className='bg-Shanghai' imageUrl={cloudy} name='Shanghai' temperatureRange='20~23'/>
         <City className='bg-Newyork' imageUrl={rain} name='New York' temperatureRange='20~28'/>
