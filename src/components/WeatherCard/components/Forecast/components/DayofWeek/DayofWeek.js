@@ -8,7 +8,7 @@ const DayofWeek = ({imageUrl, name, date, temperatureRange}) => {
         <div classname='flex flex-col'>
           <Name className='font-bold' value={name}/>
           <Date value={date}/>
-          <WeatherIcon imageUrl={imageUrl} />
+          <WeatherIcon imageUrl={imageUrl} className='p-2'/>
           <TemperatureRange value={temperatureRange}/>
         </div> 
     );
