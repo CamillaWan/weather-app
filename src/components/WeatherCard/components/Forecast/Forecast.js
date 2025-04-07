@@ -6,7 +6,7 @@ import sunny from "../../../../../src/assets/weather_icon/Sunny.png";
 
 
 const Forecast = () => (
-    <div className="flex p-4">
+    <div className="flex">
         <DayofWeek imageUrl={rain} name='Saturday' date='29 Mar' temperatureRange='20~25'/>
         <DayofWeek imageUrl={cloudy_day} name='Sunday' date='30 Mar' temperatureRange='18~20'/>
         <DayofWeek imageUrl={cloudy} name='Monday' date='31 Mar' temperatureRange='20~23'/>

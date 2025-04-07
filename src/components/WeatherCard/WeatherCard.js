@@ -9,13 +9,13 @@ const WeatherCard = () => {
         <div className="row-span-6 col-span-2 m-6 rounded-3xl bg-gradient-to-tl relative" >
             <CurrentCity />
         </div>
-        <div className="row-span-3 col-span-4 m-6 ">
+        <div className="row-span-3 col-span-4 mr-8 my-8">
             <Forecast />
         </div>
-        <div className="row-span-1 col-span-3 p-2 m-6 ">
+        <div className="row-span-1 col-span-2 p-2 mt-10">
             <SearchBar />
         </div>
-        <div className="row-span-2 col-span-4 m-6">
+        <div className="row-span-2 col-span-4 my-6 mr-8">
             <OtherCities /> 
         </div>
              

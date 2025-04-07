@@ -6,9 +6,11 @@ module.exports = {
 
     },
     colors: {
-      'white': '#f5f3ff',
-      'slate': '#e2e8f0',
+      'white': '#ffffff',
       'purple': '#742bfc',
+      'slate': '#f8fafc',
+      
+      
       
     },
     extend: {
