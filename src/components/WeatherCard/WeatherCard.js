@@ -5,7 +5,7 @@ import SearchBar from "./components/SearchBar";
 
 const WeatherCard = () => {
     return(
-    <div className="bg-slate opacity-100 w-3/4 h-5/6 relative z-10 mx-auto rounded-3xl overflow-hidden shadow-lg grid grid-cols-6 grid-rows-6 gap-4">
+    <div className="bg-slate opacity-100 max-w-screen-lg aspect-[5/3] w-2/3 sm: aspect-[3/5] relative z-10 mx-auto rounded-3xl overflow-hidden shadow-lg grid grid-cols-6 grid-rows-6 gap-4">
         <div className="row-span-6 col-span-2 m-6 rounded-3xl bg-gradient-to-tl relative" >
             <CurrentCity />
         </div>
