@@ -9,7 +9,7 @@ import bgCloudy from "../../../../assets/background/Cloudy_day_background.png"
 import icon from "../../../../assets/weather_icon/Cloudy_day.png"
 
 const CurrentCity = () => (
-    <div className="flex flex-col items-center justify-between overflow-hidden p-4 h-full w-full">
+    <div className="flex flex-col items-center justify-between p-4 h-full w-full">
         <Image imageUrl={bgCloudy} alt='Cloudy' className='absolute top-0 right-0' />
         <Date value='28 March, Friday 19:20' className='text-slate text-md md:text-sm'/>
         <Name value='New York' className='text-white text-2xl font-bold m-2'/>
