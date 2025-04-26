@@ -3,7 +3,7 @@ module.exports = {
   content: ["./src/**/*.{html,js,jsx,ts,tsx}","./public/index.html"],
   theme: {
     fontFamily: {
-
+      square: ['AlimamaFangYuanTiVF-Square', 'sans-serif'],
     },
     colors: {
       'white': '#ffffff',
