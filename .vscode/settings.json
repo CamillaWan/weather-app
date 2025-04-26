@@ -6,7 +6,8 @@
         "Newyork",
         "tailwindcss",
         "TTFB",
-        "webfonts"
+        "webfonts",
+        "xxxs"
     ],
     "css.validate": false, 
     "tailwindCSS.includeLanguages": { 
