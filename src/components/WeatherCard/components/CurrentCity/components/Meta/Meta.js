@@ -6,7 +6,7 @@ import Somatosensory from '../../../../../../../src/assets/meta_icon/Somatosenso
 
 const Meta = () => {
     return ( 
-        <div className='flex justify-between bg-slate rounded-2xl w-full p-4 overflow-hidden'>
+        <div className='flex justify-between bg-slate rounded-2xl w-full p-2 md:max-lg:p-1 xl:p-4 overflow-hidden'>
             <MetaItem imageUrl={Humidity} value='85%' alt='Humidity percentage' />
             <MetaItem imageUrl={wind} value='9 km/h' alt='Wind speed'  />
             <MetaItem imageUrl={AirQuality} value='75 μg/m³' alt='PM2.5' />
@@ -15,4 +15,4 @@ const Meta = () => {
      );
 }
  
-export default Meta ;
+export default Meta;

@@ -12,6 +12,11 @@ module.exports = {
       
     },
     extend: {
+      fontSize: {
+        'xxs': '0.625rem',
+        'xxxs': '0.5rem',
+        
+      },
       backgroundImage: {
       'gradient-to-l': 'linear-gradient(to left,rgb(73, 93, 245),rgb(145, 155, 251))',
       'gradient-to-tl': 'linear-gradient(to top left,rgb(56, 82, 250),rgb(145, 162, 252))',
