@@ -1,7 +1,7 @@
 const Temperature = ({value, className}) => {
     return ( 
         <div className={className}>
-            {value}°C
+            {Math.round(value)}°C
         </div>
      );
 }
