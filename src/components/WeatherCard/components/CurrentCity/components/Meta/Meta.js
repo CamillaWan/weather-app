@@ -1,7 +1,7 @@
 import MetaItem from "./components/MetaItem/MetaItem";
 import wind from '../../../../../../../src/assets/meta_icon/wind_speed.svg';
 import Humidity from '../../../../../../../src/assets/meta_icon/humidity.svg';
-import AirQuality from '../../../../../../../src/assets/meta_icon/PM2.5.svg';
+import UVi from '../../../../../../../src/assets/meta_icon/uv-index.svg';
 import Somatosensory from '../../../../../../../src/assets/meta_icon/Somatosensory.svg';
 
 const Meta = () => {
@@ -9,7 +9,7 @@ const Meta = () => {
         <div className='flex justify-between bg-slate rounded-2xl w-full p-2 md:max-lg:p-1 xl:p-4 overflow-hidden'>
             <MetaItem imageUrl={Humidity} value='85%' alt='Humidity percentage' />
             <MetaItem imageUrl={wind} value='9 km/h' alt='Wind speed'  />
-            <MetaItem imageUrl={AirQuality} value='75 μg/m³' alt='PM2.5' />
+            <MetaItem imageUrl={UVi} value='5' alt='UV index' />
             <MetaItem imageUrl={Somatosensory} value='26°C' alt='Somatosensory temperature' />
         </div>
      );
