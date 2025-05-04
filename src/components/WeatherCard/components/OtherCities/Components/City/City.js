@@ -8,7 +8,7 @@ const City = ({className, imageUrl, name, temperatureRange}) => {
             <div className='flex flex-col items-center justify-center overflow-hidden bg-gradient-to-l opacity-70 hover:opacity-100 bg-cover h-full w-full rounded-3xl'>
                 <WeatherIcon className='w-1/2' imageUrl={imageUrl}/>
                 <Name value={name} className='text-xs lg:text-sm xl:text-base'/>
-                <TemperatureRange value={temperatureRange} className='text-xxs lg:text-xs xl:text-s'/>
+                <TemperatureRange minValue={temperatureRange.min} maxValue={temperatureRange.max} className='text-xxs lg:text-xs xl:text-s'/>
             </div>
         </div>
      );

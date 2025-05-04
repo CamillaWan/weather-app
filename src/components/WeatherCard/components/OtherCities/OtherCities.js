@@ -1,16 +1,23 @@
 import City from "./Components/City/City";
-import sunny from '../../../../assets/weather_icon/Sunny.png';
-import cloudy from '../../../../assets/weather_icon/Cloudy.png';        
-import rain from '../../../../assets/weather_icon/Rain.png';
-import snow from '../../../../assets/weather_icon/Snow.png';
+import getWeatherIcon from "../../utils/getWeatherIcon";
 
-const OtherCities = () => (
-    <div className='flex justify-between text-white h-full w-full'>
-        <City className='bg-Sydney' imageUrl={sunny} name='Sydney' temperatureRange='28~32'/>
-        <City className='bg-Shanghai' imageUrl={cloudy} name='Shanghai' temperatureRange='20~23'/>
-        <City className='bg-Newyork' imageUrl={rain} name='New York' temperatureRange='20~28'/>
-        <City className='bg-London' imageUrl={snow} name='London' temperatureRange='0~2'/>
-    </div>
-)
+const OtherCities = ({ data }) => {
+    if (!data || data.length === 0) return <p>Loading...</p>;
+  
+    return (
+      <div className="flex justify-between text-white h-full w-full">
+        {data.map((city, index) => (
+          <City
+            key={index}
+            imageUrl={getWeatherIcon(city.condition)}
+            name={city.city} // ✅ 这里使用 `city.city`，因为 `otherCitiesData` 中 `city` 是键名
+            temperatureRange={{min: city.tempRange.min, max: city.tempRange.max}}
+            className={`bg-${city.city.replace(" ", "")}`} // ✅ 动态添加背景类
+          />
+        ))}
+      </div>
+    );
+  };
+  
 
 export default OtherCities;

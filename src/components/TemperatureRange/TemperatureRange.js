@@ -1,6 +1,6 @@
-const TemperatureRange = ({value, className}) => (
+const TemperatureRange = ({minValue, maxValue, className}) => (
     <div className={`${className} flex justify-center`}>
-        {value}°C
+        {Math.round(minValue)}~{Math.round(maxValue)}°C
     </div>
 );
 
