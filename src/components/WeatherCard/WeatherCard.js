@@ -42,6 +42,7 @@ const WeatherCard = () => {
       const weatherData = response.data;
 
       setCurrentWeather({
+        city: debouncedCity,
         temp: weatherData.current.temp,
         tempRange: { min: weatherData.daily[0].temp.min, max: weatherData.daily[0].temp.max },
         condition: weatherData.current.weather[0].description,
@@ -49,7 +50,7 @@ const WeatherCard = () => {
         windSpeed: weatherData.current.wind_speed,
         uvIndex: weatherData.current.uvi, 
         feelsLike: weatherData.current.feels_like,
-        dateTime: new Date(weatherData.current.dt * 1000).toLocaleString(),
+        dateTime: new Date(weatherData.current.dt * 1000).toLocaleString("en-GB", { day: "numeric", month: "long", weekday: "long", hour: "2-digit", minute: "2-digit" }),
       });
 
       setForecast(weatherData.daily.slice(1, 5).map(day => ({
@@ -99,7 +100,6 @@ const WeatherCard = () => {
 
   useEffect(() => {
     fetchOtherCitiesWeather();
-    console.log("Other Cities Data:", otherCities);
   }, [API_KEY]); // ✅ Fetch other cities weather on component mount
 
   return (
