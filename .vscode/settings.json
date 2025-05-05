@@ -1,20 +1,23 @@
 {
-    "cSpell.words": [
-        "Alimama",
-        "autoprefixer",
-        "Dayof",
-        "Newyork",
-        "tailwindcss",
-        "TTFB",
-        "webfonts",
-        "xxxs"
-    ],
-    "css.validate": false, 
-    "tailwindCSS.includeLanguages": { 
-        "plaintext": "html", 
-        "javascript": "javascript", 
-        "javascriptreact": "javascriptreact", 
-        "typescript": "typescript", 
-        "typescriptreact": "typescriptreact"
-    }    
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  "cSpell.words": [
+    "Alimama",
+    "autoprefixer",
+    "Dayof",
+    "Newyork",
+    "tailwindcss",
+    "TTFB",
+    "webfonts",
+    "xxxs"
+  ],
+  "css.validate": false,
+  "tailwindCSS.includeLanguages": {
+    "plaintext": "html",
+    "javascript": "javascript",
+    "javascriptreact": "javascriptreact",
+    "typescript": "typescript",
+    "typescriptreact": "typescriptreact"
+  }
 }

@@ -1,1 +1,1 @@
-export {default} from './CurrentCity';
+export { default } from "./CurrentCity";

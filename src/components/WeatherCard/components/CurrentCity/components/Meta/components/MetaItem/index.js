@@ -1,1 +1,1 @@
-export {default} from './MetaItem';
+export { default } from "./MetaItem";
