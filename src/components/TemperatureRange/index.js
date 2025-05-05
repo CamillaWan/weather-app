@@ -1,1 +1,1 @@
-export {default} from './TemperatureRange';
+export { default } from "./TemperatureRange";

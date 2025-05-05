@@ -11,7 +11,7 @@ const getWeatherIcon = (condition) => {
   if (condition.includes("drizzle || thunderstorm")) return showerRainIcon;
   if (condition.includes("rain")) return rainIcon;
   if (condition.includes("snow")) return snowIcon;
-  return cloudyIcon; 
+  return cloudyIcon;
 };
 
 export default getWeatherIcon;

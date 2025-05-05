@@ -1,1 +1,1 @@
-export {default} from './OtherCities';
+export { default } from "./OtherCities";

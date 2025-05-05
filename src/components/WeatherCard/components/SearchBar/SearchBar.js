@@ -12,7 +12,10 @@ const SearchBar = ({ setCity }) => {
   };
 
   return (
-    <form onSubmit={handleSearch} className="flex flex-nowrap justify-between items-center bg-white rounded-lg shadow-xl h-8 w-full">
+    <form
+      onSubmit={handleSearch}
+      className="flex flex-nowrap justify-between items-center bg-white rounded-lg shadow-xl h-8 w-full"
+    >
       <input
         type="text"
         value={input}

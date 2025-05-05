@@ -6,7 +6,6 @@ import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { useDebounce } from "use-debounce";
 
-
 const WeatherCard = () => {
   const [currentWeather, setCurrentWeather] = useState(null);
   const [forecast, setForecast] = useState(null);
@@ -18,7 +17,9 @@ const WeatherCard = () => {
 
   const getCityCoordinates = async (cityName) => {
     try {
-      const response = await axios.get(`https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${API_KEY}`);
+      const response = await axios.get(
+        `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${API_KEY}`
+      );
       if (response.data.length > 0) {
         return { lat: response.data[0].lat, lon: response.data[0].lon };
       }
@@ -28,42 +29,62 @@ const WeatherCard = () => {
     return null;
   };
 
+  const fetchWeatherData = useCallback(
+    async (cityName) => {
+      if (!cityName) return; // Prevent API call on empty city
+      console.log(`Fetching weather for: ${cityName}`);
+      const coordinates = await getCityCoordinates(debouncedCity);
+      if (!coordinates) return;
 
-  const fetchWeatherData = useCallback(async (cityName) => {
-    if (!cityName) return; // Prevent API call on empty city
-    console.log(`Fetching weather for: ${cityName}`); 
-    const coordinates = await getCityCoordinates(debouncedCity);
-    if (!coordinates) return;
+      const oneCallURL = `https://api.openweathermap.org/data/3.0/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude=minutely,hourly&units=metric&appid=${API_KEY}`;
 
-    const oneCallURL = `https://api.openweathermap.org/data/3.0/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude=minutely,hourly&units=metric&appid=${API_KEY}`;
+      try {
+        const response = await axios.get(oneCallURL);
+        const weatherData = response.data;
 
-    try {
-      const response = await axios.get(oneCallURL);
-      const weatherData = response.data;
+        setCurrentWeather({
+          city: cityName,
+          temp: weatherData.current.temp,
+          tempRange: {
+            min: weatherData.daily[0].temp.min,
+            max: weatherData.daily[0].temp.max,
+          },
+          condition: weatherData.current.weather[0].description,
+          humidity: weatherData.current.humidity,
+          windSpeed: weatherData.current.wind_speed,
+          uvIndex: weatherData.current.uvi,
+          feelsLike: weatherData.current.feels_like,
+          dateTime: new Date(weatherData.current.dt * 1000).toLocaleString(
+            "en-GB",
+            {
+              day: "numeric",
+              month: "long",
+              weekday: "long",
+              hour: "2-digit",
+              minute: "2-digit",
+            }
+          ),
+        });
 
-      setCurrentWeather({
-        city: cityName,
-        temp: weatherData.current.temp,
-        tempRange: { min: weatherData.daily[0].temp.min, max: weatherData.daily[0].temp.max },
-        condition: weatherData.current.weather[0].description,
-        humidity: weatherData.current.humidity,
-        windSpeed: weatherData.current.wind_speed,
-        uvIndex: weatherData.current.uvi, 
-        feelsLike: weatherData.current.feels_like,
-        dateTime: new Date(weatherData.current.dt * 1000).toLocaleString("en-GB", { day: "numeric", month: "long", weekday: "long", hour: "2-digit", minute: "2-digit" }),
-      });
-
-      setForecast(weatherData.daily.slice(1, 5).map(day => ({
-        date: new Date(day.dt * 1000).toLocaleDateString("en-GB", { day: "numeric", month: "long" }),
-        day: new Date(day.dt * 1000).toLocaleDateString("en-US", { weekday: "long" }),
-        condition: day.weather[0].description,
-        tempRange: { min: day.temp.min, max: day.temp.max }
-      })));
-
-    } catch (error) {
-      console.error("Error fetching weather data:", error);
-    }
-  }, [debouncedCity, API_KEY]); 
+        setForecast(
+          weatherData.daily.slice(1, 5).map((day) => ({
+            date: new Date(day.dt * 1000).toLocaleDateString("en-GB", {
+              day: "numeric",
+              month: "long",
+            }),
+            day: new Date(day.dt * 1000).toLocaleDateString("en-US", {
+              weekday: "long",
+            }),
+            condition: day.weather[0].description,
+            tempRange: { min: day.temp.min, max: day.temp.max },
+          }))
+        );
+      } catch (error) {
+        console.error("Error fetching weather data:", error);
+      }
+    },
+    [debouncedCity, API_KEY]
+  );
 
   const fetchOtherCitiesWeather = useCallback(async () => {
     const cities = ["Sydney", "Shanghai", "New York", "London"];
@@ -74,17 +95,19 @@ const WeatherCard = () => {
       if (!coordinates) continue;
 
       const oneCallURL = `https://api.openweathermap.org/data/3.0/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude=minutely,hourly&units=metric&appid=${API_KEY}`;
-      
+
       try {
         const response = await axios.get(oneCallURL);
         const weatherData = response.data;
-        
+
         otherCitiesData.push({
           city: cityName,
-          tempRange: { min: weatherData.daily[0].temp.min, max: weatherData.daily[0].temp.max },
-          condition: weatherData.current.weather[0].description
+          tempRange: {
+            min: weatherData.daily[0].temp.min,
+            max: weatherData.daily[0].temp.max,
+          },
+          condition: weatherData.current.weather[0].description,
         });
-
       } catch (error) {
         console.error(`Error fetching weather for ${cityName}:`, error);
       }
@@ -120,7 +143,7 @@ const WeatherCard = () => {
         <SearchBar setCity={setCity} />
       </div>
       <div className="row-span-2 col-span-2 p-4 md:row-span-2 md:col-span-4 md:max-lg:p-0 md:my-4 md:mr-8">
-        <OtherCities data={otherCities} setCity={setCity}/>
+        <OtherCities data={otherCities} setCity={setCity} />
       </div>
     </div>
   );

@@ -1,1 +1,1 @@
-export {default} from './getWeatherIcon';
+export { default } from "./getWeatherIcon";
