@@ -29,9 +29,9 @@ const WeatherCard = () => {
   };
 
 
-  const fetchWeatherData = useCallback(async () => {
-    if (!debouncedCity) return; // Prevent API call on empty city
-
+  const fetchWeatherData = useCallback(async (cityName) => {
+    if (!cityName) return; // Prevent API call on empty city
+    console.log(`Fetching weather for: ${cityName}`); 
     const coordinates = await getCityCoordinates(debouncedCity);
     if (!coordinates) return;
 
@@ -42,7 +42,7 @@ const WeatherCard = () => {
       const weatherData = response.data;
 
       setCurrentWeather({
-        city: debouncedCity,
+        city: cityName,
         temp: weatherData.current.temp,
         tempRange: { min: weatherData.daily[0].temp.min, max: weatherData.daily[0].temp.max },
         condition: weatherData.current.weather[0].description,
@@ -63,7 +63,7 @@ const WeatherCard = () => {
     } catch (error) {
       console.error("Error fetching weather data:", error);
     }
-  }, [debouncedCity, API_KEY]); // ✅ Correct dependency
+  }, [debouncedCity, API_KEY]); 
 
   const fetchOtherCitiesWeather = useCallback(async () => {
     const cities = ["Sydney", "Shanghai", "New York", "London"];
@@ -94,9 +94,15 @@ const WeatherCard = () => {
 
   useEffect(() => {
     if (debouncedCity) {
-      fetchWeatherData();
+      fetchWeatherData(debouncedCity);
     }
   }, [debouncedCity, API_KEY]); // ✅ Ensure API is called only when needed
+
+  useEffect(() => {
+    if (city !== debouncedCity) {
+      fetchWeatherData(city); // ✅ Fetch weather data when city changes
+    }
+  }, [city, API_KEY]);
 
   useEffect(() => {
     fetchOtherCitiesWeather();
@@ -114,7 +120,7 @@ const WeatherCard = () => {
         <SearchBar setCity={setCity} />
       </div>
       <div className="row-span-2 col-span-2 p-4 md:row-span-2 md:col-span-4 md:max-lg:p-0 md:my-4 md:mr-8">
-        <OtherCities data={otherCities}/>
+        <OtherCities data={otherCities} setCity={setCity}/>
       </div>
     </div>
   );

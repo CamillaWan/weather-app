@@ -1,7 +1,7 @@
 import City from "./Components/City/City";
 import getWeatherIcon from "../../utils/getWeatherIcon";
 
-const OtherCities = ({ data }) => {
+const OtherCities = ({ data, setCity }) => {
     if (!data || data.length === 0) return <p>Loading...</p>;
   
     return (
@@ -10,9 +10,13 @@ const OtherCities = ({ data }) => {
           <City
             key={index}
             imageUrl={getWeatherIcon(city.condition)}
-            name={city.city} // ✅ 这里使用 `city.city`，因为 `otherCitiesData` 中 `city` 是键名
+            name={city.city} 
             temperatureRange={{min: city.tempRange.min, max: city.tempRange.max}}
-            className={`bg-${city.city.replace(" ", "")}`} // ✅ 动态添加背景类
+            className={`bg-${city.city.replace(" ", "")}`} 
+            onClick={() => {
+              console.log(`Clicked city: ${city.city}`);
+              setCity(city.city);
+            }}
           />
         ))}
       </div>
