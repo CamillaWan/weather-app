@@ -23,7 +23,7 @@ module.exports = {
       'gradient-to-tl': 'linear-gradient(to top left,rgb(56, 82, 250),rgb(145, 162, 252))',
       'Sydney':'url(../src/assets/City/Sydney.png)',
       'Shanghai':'url(../src/assets/City/Shanghai.png)',
-      'Newyork':'url(../src/assets/City/Newyork.png)',
+      'NewYork':'url(../src/assets/City/Newyork.png)',
       'London':'url(../src/assets/City/London.png)',
       },
 

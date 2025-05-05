@@ -72,7 +72,7 @@ const WeatherCard = () => {
       const coordinates = await getCityCoordinates(cityName);
       if (!coordinates) continue;
 
-      const oneCallURL = `https://api.openweathermap.org/data/3.0/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude=minutely,hourly,daily&units=metric&appid=${API_KEY}`;
+      const oneCallURL = `https://api.openweathermap.org/data/3.0/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude=minutely,hourly&units=metric&appid=${API_KEY}`;
       
       try {
         const response = await axios.get(oneCallURL);
@@ -99,6 +99,7 @@ const WeatherCard = () => {
 
   useEffect(() => {
     fetchOtherCitiesWeather();
+    console.log("Other Cities Data:", otherCities);
   }, [API_KEY]); // ✅ Fetch other cities weather on component mount
 
   return (
