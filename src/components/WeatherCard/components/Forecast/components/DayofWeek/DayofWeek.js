@@ -6,7 +6,14 @@ import Date from "../../../../../Date";
 const DayofWeek = ({ imageUrl, day, date, temperatureRange }) => {
   return (
     <div className="flex flex-col items-center justify-center">
-      <Name className="font-bold text-sm lg:text-base" value={day} />
+      <Name
+        className="hidden sm:block font-bold text-sm lg:text-base"
+        value={day}
+      />
+      <Name
+        className="block sm:hidden font-bold text-sm lg:text-base"
+        value={day.slice(0, 3)}
+      />
       <Date
         value={date}
         className="text-sm sm:text-base md:max-lg:text-sm lg:text-base"
