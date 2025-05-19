@@ -1,25 +1,22 @@
 import City from "./Components/City/City";
 import getWeatherIcon from "../../utils/getWeatherIcon";
 
-const OtherCities = ({ data, setCity }) => {
-  if (!data || data.length === 0) return <p>Loading...</p>;
-
+const OtherCities = ({ data, setSelectedCoordinates }) => {
+  if (data.length === 0) return <p>Loading...</p>;
+  console.log("Fetching weather for:", data);
   return (
     <div className="flex justify-between text-white h-full w-full">
       {data.map((city, index) => (
         <City
           key={index}
-          imageUrl={getWeatherIcon(city.condition)}
-          name={city.city}
+          imageUrl={getWeatherIcon(city.condition || "Unknown")}
+          name={city.name || "Unknown City"}
           temperatureRange={{
-            min: city.tempRange.min,
-            max: city.tempRange.max,
+            min: city.tempRange?.min || 0,
+            max: city.tempRange?.max || 0,
           }}
-          className={`bg-${city.city.replace(" ", "")}`}
-          onClick={() => {
-            console.log(`Clicked city: ${city.city}`);
-            setCity(city.city);
-          }}
+          className={`bg-${city.name?.replace(" ", "") || "default"}`}
+          onClick={() => setSelectedCoordinates(city)}
         />
       ))}
     </div>
