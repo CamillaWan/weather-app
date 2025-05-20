@@ -27,7 +27,7 @@ const SearchBar = ({ setSelectedCoordinates }) => {
 
   const handleCitySelect = (city) => {
     setSelectedCity(city);
-    setInput(city.name); // Reset input field
+    setInput(`${city.name}, ${city.state || "Unknown"}, ${city.country}`); // Reset input field
     setCityOptions([]); // Clear city options
   };
 
