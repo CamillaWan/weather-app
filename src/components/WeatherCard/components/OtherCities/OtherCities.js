@@ -3,9 +3,9 @@ import getWeatherIcon from "../../utils/getWeatherIcon";
 
 const OtherCities = ({ data, setSelectedCoordinates }) => {
   if (data.length === 0) return <p>Loading...</p>;
-  console.log("Fetching weather for:", data);
+
   return (
-    <div className="flex justify-between text-white h-full w-full">
+    <div className="data-testid='other-cities' flex justify-between text-white h-full w-full">
       {data.map((city, index) => (
         <City
           key={index}
