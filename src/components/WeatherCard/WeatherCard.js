@@ -98,7 +98,7 @@ const WeatherCard = () => {
       }
     }
     setOtherCitiesWeather(otherCitiesData);
-  }, []);
+  }, [cities]);
 
   useEffect(() => {
     fetchWeatherData();
