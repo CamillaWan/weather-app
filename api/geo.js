@@ -1,5 +1,6 @@
 module.exports = async function handler(req, res) {
   const { q } = req.query;
+  require("dotenv").config();
   const apiKey = process.env.OPENWEATHER_KEY;
 
   if (!q || q.length < 3) {
@@ -9,6 +10,8 @@ module.exports = async function handler(req, res) {
   const url = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(
     q
   )}&limit=5&appid=${apiKey}`;
+
+  const fetch = require("node-fetch");
 
   try {
     const response = await fetch(url);

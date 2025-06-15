@@ -5,6 +5,11 @@ import SearchBar from "./components/SearchBar";
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 
+const API_BASE_URL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000/api"
+    : "https://weather-app.vercel.app/api";
+
 const WeatherCard = () => {
   const cities = [
     { name: "Brisbane", lat: -27.4698, lon: 153.0251 },
@@ -24,7 +29,7 @@ const WeatherCard = () => {
 
     try {
       const response = await axios.get(
-        `/api/weather?lat=${selectedCoordinates.lat}&lon=${selectedCoordinates.lon}`
+        `${API_BASE_URL}/weather?lat=${selectedCoordinates.lat}&lon=${selectedCoordinates.lon}`
       );
       const weatherData = response.data;
 
@@ -76,7 +81,7 @@ const WeatherCard = () => {
     for (const city of cities.slice(1)) {
       try {
         const response = await axios.get(
-          `/api/weather?lat=${selectedCoordinates.lat}&lon=${selectedCoordinates.lon}`
+          `${API_BASE_URL}/weather?lat=${selectedCoordinates.lat}&lon=${selectedCoordinates.lon}`
         );
         const weatherData = response.data;
 
@@ -97,11 +102,11 @@ const WeatherCard = () => {
 
   useEffect(() => {
     fetchWeatherData();
-  }, [selectedCoordinates]);
+  }, [selectedCoordinates, fetchWeatherData]);
 
   useEffect(() => {
     fetchOtherCitiesWeather();
-  }, []);
+  }, [fetchOtherCitiesWeather]);
 
   return (
     <div className="bg-slate opacity-100 w-4/5 h-auto m-6 min-w-[360px] md:max-w-screen-lg md:aspect-[5/3] relative z-10 rounded-3xl shadow-lg grid grid-cols-2 grid-rows-11 md:grid-cols-6 md:grid-rows-6 gap-4">

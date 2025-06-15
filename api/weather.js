@@ -1,6 +1,8 @@
 // /api/weather.js
 module.exports = async function handler(req, res) {
+  res.json({ message: "Weather API is working" });
   const { lat, lon } = req.query;
+  require("dotenv").config();
   const apiKey = process.env.OPENWEATHER_KEY;
 
   if (!lat || !lon) {
@@ -8,7 +10,7 @@ module.exports = async function handler(req, res) {
   }
 
   const url = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly&units=metric&appid=${apiKey}`;
-
+  const fetch = require("node-fetch");
   try {
     const response = await fetch(url);
     const data = await response.json();

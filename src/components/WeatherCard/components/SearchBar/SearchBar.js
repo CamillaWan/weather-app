@@ -1,6 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
 
+const API_BASE_URL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000/api"
+    : "https://weather-app.vercel.app/api";
+
 const SearchBar = ({ setSelectedCoordinates }) => {
   const [input, setInput] = useState("");
   const [cityOptions, setCityOptions] = useState([]);
@@ -9,7 +14,7 @@ const SearchBar = ({ setSelectedCoordinates }) => {
   const fetchCities = async (query) => {
     if (query.length < 3) return; // Minimum 3 characters for search
     try {
-      const response = await axios.get(`/api/geo?q=${query}`);
+      const response = await axios.get(`${API_BASE_URL}/geo?q=${query}`);
       setCityOptions(response.data || []);
     } catch (error) {
       console.error("Error fetching city options:", error);
