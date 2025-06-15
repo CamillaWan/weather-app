@@ -11,13 +11,16 @@ const API_BASE_URL =
     : "https://weather-app.vercel.app/api";
 
 const WeatherCard = () => {
-  const cities = [
-    { name: "Brisbane", lat: -27.4698, lon: 153.0251 },
-    { name: "Sydney", lat: -33.8688, lon: 151.2093 },
-    { name: "Shanghai", lat: 31.2304, lon: 121.4737 },
-    { name: "New York", lat: 40.7128, lon: -74.006 },
-    { name: "London", lat: 51.5074, lon: -0.1278 },
-  ];
+  const cities = useMemo(
+    () => [
+      { name: "Brisbane", lat: -27.4698, lon: 153.0251 },
+      { name: "Sydney", lat: -33.8688, lon: 151.2093 },
+      { name: "Shanghai", lat: 31.2304, lon: 121.4737 },
+      { name: "New York", lat: 40.7128, lon: -74.006 },
+      { name: "London", lat: 51.5074, lon: -0.1278 },
+    ],
+    []
+  );
 
   const [currentWeather, setCurrentWeather] = useState(null);
   const [forecast, setForecast] = useState(null);
