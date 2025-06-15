@@ -79,6 +79,7 @@ const WeatherCard = () => {
     }
   }, [selectedCoordinates]);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const fetchOtherCitiesWeather = useCallback(async () => {
     const otherCitiesData = [];
 
@@ -102,7 +103,7 @@ const WeatherCard = () => {
       }
     }
     setOtherCitiesWeather(otherCitiesData);
-  }, [selectedCoordinates.lat, selectedCoordinates.lon]);
+  }, []);
 
   useEffect(() => {
     fetchWeatherData();
