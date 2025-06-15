@@ -3,15 +3,19 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
 
   "cSpell.words": [
+    "Ahwhfw",
     "Alimama",
     "autoprefixer",
     "Dayof",
+    "Ixcfg",
     "Newyork",
     "SUPABASE",
     "tailwindcss",
     "TTFB",
+    "vercel",
     "webfonts",
-    "xxxs"
+    "xxxs",
+    "yaug"
   ],
   "css.validate": false,
   "tailwindCSS.includeLanguages": {

@@ -1,5 +1,5 @@
 // /api/weather.js
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   const { lat, lon } = req.query;
   const apiKey = process.env.OPENWEATHER_KEY;
 
@@ -16,4 +16,4 @@ export default async function handler(req, res) {
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch weather data" });
   }
-}
+};

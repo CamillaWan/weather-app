@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.d1316e40.css",
-    "main.js": "/static/js/main.574cab0d.js",
+    "main.css": "/static/css/main.f7814e91.css",
+    "main.js": "/static/js/main.2c0299bc.js",
     "static/js/453.77941fc0.chunk.js": "/static/js/453.77941fc0.chunk.js",
     "static/media/AlimamaFangYuanTiVF-Thin.woff": "/static/media/AlimamaFangYuanTiVF-Thin.568c1439adee844abd04.woff",
     "static/media/AlimamaFangYuanTiVF-Thin.woff2": "/static/media/AlimamaFangYuanTiVF-Thin.c6feb7455dae459ccf07.woff2",
@@ -22,12 +22,12 @@
     "static/media/uv-index.svg": "/static/media/uv-index.091ed9101a3037ca0ac3fefb92dd7354.svg",
     "static/media/Somatosensory.svg": "/static/media/Somatosensory.4da165ef8c7379ad1321e5a7d99c8c06.svg",
     "index.html": "/index.html",
-    "main.d1316e40.css.map": "/static/css/main.d1316e40.css.map",
-    "main.574cab0d.js.map": "/static/js/main.574cab0d.js.map",
+    "main.f7814e91.css.map": "/static/css/main.f7814e91.css.map",
+    "main.2c0299bc.js.map": "/static/js/main.2c0299bc.js.map",
     "453.77941fc0.chunk.js.map": "/static/js/453.77941fc0.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d1316e40.css",
-    "static/js/main.574cab0d.js"
+    "static/css/main.f7814e91.css",
+    "static/js/main.2c0299bc.js"
   ]
 }
