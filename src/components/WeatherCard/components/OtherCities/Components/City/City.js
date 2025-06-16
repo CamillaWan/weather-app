@@ -5,7 +5,7 @@ import WeatherIcon from "../../../../../WeatherIcon";
 const City = ({ className, imageUrl, name, temperatureRange, onClick }) => {
   return (
     <div
-      className={`${className} opacity-100 w-full bg-cover bg-no-repeat bg-center mx-2 rounded-3xl flex flex-col justify-center items-center`}
+      className={`${className} opacity-100 h-full bg-cover bg-no-repeat bg-center mx-2 rounded-3xl flex flex-col justify-center items-center`}
       onClick={onClick}
     >
       <div className="flex flex-col items-center justify-center overflow-hidden bg-gradient-to-l opacity-70 hover:opacity-100 bg-cover h-full w-full rounded-3xl">

@@ -4,122 +4,126 @@ import OtherCities from "./components/OtherCities";
 import SearchBar from "./components/SearchBar";
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
+import { supabase, CITY_COORDINATES } from "../../lib/supabaseClient";
 
 const WeatherCard = () => {
-  const cities = [
-    { name: "Brisbane", lat: -27.4698, lon: 153.0251 },
-    { name: "Sydney", lat: -33.8688, lon: 151.2093 },
-    { name: "Shanghai", lat: 31.2304, lon: 121.4737 },
-    { name: "New York", lat: 40.7128, lon: -74.006 },
-    { name: "London", lat: 51.5074, lon: -0.1278 },
-  ];
-
   const [currentWeather, setCurrentWeather] = useState(null);
   const [forecast, setForecast] = useState(null);
-  const [otherCitiesWeather, setOtherCitiesWeather] = useState([]);
-  const [selectedCoordinates, setSelectedCoordinates] = useState(cities[0]);
+  const [selectedCity, setSelectedCity] = useState("Brisbane");
+  const [refreshKey, setRefreshKey] = useState(0);
+  const [user, setUser] = useState(null);
 
   const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 
-  const fetchWeatherData = useCallback(async () => {
-    if (!selectedCoordinates) return; // Prevent API call on empty city
+  useEffect(() => {
+    const getSession = async () => {
+      const {
+        data: { session },
+        error,
+      } = await supabase.auth.getSession();
+      if (error) {
+        console.error("Failed to get session:", error.message);
+      } else {
+        setUser(session?.user ?? null);
+      }
+    };
 
-    const oneCallURL = `https://api.openweathermap.org/data/3.0/onecall?lat=${selectedCoordinates.lat}&lon=${selectedCoordinates.lon}&exclude=minutely,hourly&units=metric&appid=${API_KEY}`;
+    getSession();
 
-    try {
-      const response = await axios.get(oneCallURL);
-      const weatherData = response.data;
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
 
-      setCurrentWeather({
-        city: selectedCoordinates.name,
-        temp: weatherData.current.temp,
-        tempRange: {
-          min: weatherData.daily[0].temp.min,
-          max: weatherData.daily[0].temp.max,
-        },
-        condition: weatherData.current.weather[0].description,
-        humidity: weatherData.current.humidity,
-        windSpeed: weatherData.current.wind_speed,
-        uvIndex: weatherData.current.uvi,
-        feelsLike: weatherData.current.feels_like,
-        dateTime: new Date(weatherData.current.dt * 1000).toLocaleString(
-          "en-GB",
-          {
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const fetchWeatherData = useCallback(
+    async (cityName) => {
+      const coords = CITY_COORDINATES[cityName];
+      if (!coords) return; // Prevent API call on empty city
+
+      const oneCallURL = `https://api.openweathermap.org/data/3.0/onecall?lat=${coords.lat}&lon=${coords.lon}&exclude=minutely,hourly&units=metric&appid=${API_KEY}`;
+
+      try {
+        const { data } = await axios.get(oneCallURL);
+
+        setCurrentWeather({
+          city: cityName,
+          temp: data.current.temp,
+          tempRange: {
+            min: data.daily[0].temp.min,
+            max: data.daily[0].temp.max,
+          },
+          condition: data.current.weather[0].description,
+          humidity: data.current.humidity,
+          windSpeed: data.current.wind_speed,
+          uvIndex: data.current.uvi,
+          feelsLike: data.current.feels_like,
+          dateTime: new Date(data.current.dt * 1000).toLocaleString("en-GB", {
             day: "numeric",
             month: "long",
             weekday: "long",
             hour: "2-digit",
             minute: "2-digit",
-          }
-        ),
-      });
-
-      setForecast(
-        weatherData.daily.slice(1, 5).map((day) => ({
-          date: new Date(day.dt * 1000).toLocaleDateString("en-GB", {
-            day: "numeric",
-            month: "long",
           }),
-          day: new Date(day.dt * 1000).toLocaleDateString("en-US", {
-            weekday: "long",
-          }),
-          condition: day.weather[0].description,
-          tempRange: { min: day.temp.min, max: day.temp.max },
-        }))
-      );
-    } catch (error) {
-      console.error("Error fetching weather data:", error);
-    }
-  }, [selectedCoordinates, API_KEY]);
-
-  const fetchOtherCitiesWeather = useCallback(async () => {
-    const otherCitiesData = [];
-
-    for (const city of cities.slice(1)) {
-      const oneCallURL = `https://api.openweathermap.org/data/3.0/onecall?lat=${city.lat}&lon=${city.lon}&exclude=minutely,hourly&units=metric&appid=${API_KEY}`;
-
-      try {
-        const response = await axios.get(oneCallURL);
-        const weatherData = response.data;
-
-        otherCitiesData.push({
-          ...city,
-          tempRange: {
-            min: weatherData.daily[0].temp.min,
-            max: weatherData.daily[0].temp.max,
-          },
-          condition: weatherData.current.weather[0].description,
         });
+
+        setForecast(
+          data.daily.slice(1, 5).map((day) => ({
+            date: new Date(day.dt * 1000).toLocaleDateString("en-GB", {
+              day: "numeric",
+              month: "long",
+            }),
+            day: new Date(day.dt * 1000).toLocaleDateString("en-US", {
+              weekday: "long",
+            }),
+            condition: day.weather[0].description,
+            tempRange: { min: day.temp.min, max: day.temp.max },
+          }))
+        );
       } catch (error) {
-        console.error(`Error fetching weather for ${city}:`, error);
+        console.error("Error fetching weather data:", error);
       }
-    }
-    setOtherCitiesWeather(otherCitiesData);
-  }, [API_KEY]);
+    },
+    [API_KEY]
+  );
 
   useEffect(() => {
-    fetchWeatherData();
-  }, [selectedCoordinates]);
+    fetchWeatherData(selectedCity);
+  }, [selectedCity, fetchWeatherData]);
 
-  useEffect(() => {
-    fetchOtherCitiesWeather();
-  }, []);
+  const handleCityUpdate = () => {
+    setRefreshKey((prev) => prev + 1);
+  };
 
   return (
     <div className="bg-slate opacity-100 w-4/5 h-auto m-6 min-w-[360px] md:max-w-screen-lg md:aspect-[5/3] relative z-10 rounded-3xl shadow-lg grid grid-cols-2 grid-rows-11 md:grid-cols-6 md:grid-rows-6 gap-4">
       <div className="row-span-6 col-span-2 m-6 md:max-lg:m-4 rounded-3xl bg-gradient-to-tl relative">
-        <CurrentCity data={currentWeather} />
+        {currentWeather && (
+          <CurrentCity
+            data={currentWeather}
+            user={user}
+            onSave={handleCityUpdate}
+          />
+        )}
       </div>
       <div className="row-span-2 col-span-2 p-4 md:max-lg:m-6 md:p-0 md:row-span-3 md:col-span-4 lg:mr-8 lg:mt-8">
-        <Forecast data={forecast} />
+        {forecast && <Forecast data={forecast} />}
       </div>
       <div className="row-span-1 col-span-2 p-4 md:max-lg:m-0 md:max-lg:pl-6 md:col-span-3 lg:p-0 lg:m-6">
-        <SearchBar setSelectedCoordinates={setSelectedCoordinates} />
+        <SearchBar
+          cities={Object.keys(CITY_COORDINATES)}
+          onSelectCity={setSelectedCity}
+        />
       </div>
       <div className="row-span-2 col-span-2 p-4 md:row-span-2 md:col-span-4 md:max-lg:p-0 md:my-4 md:mr-8">
         <OtherCities
-          data={otherCitiesWeather}
-          setSelectedCoordinates={setSelectedCoordinates}
+          currentCity={selectedCity}
+          onSelectCity={setSelectedCity}
+          user={user}
+          key={refreshKey}
         />
       </div>
     </div>
