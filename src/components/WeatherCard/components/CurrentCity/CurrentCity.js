@@ -5,8 +5,8 @@ import Date from "../../../Date";
 import Temperature from "./components/Temperature";
 import Meta from "./components/Meta";
 import Image from "./components/Image";
-import bgCloudy from "../../../../assets/background/Cloudy_day_background.png";
 import getWeatherIcon from "../../utils/getWeatherIcon/getWeatherIcon";
+import getWeatherBg from "../../utils/getWeatherBg/getWeatherBg";
 import {
   supabase,
   CITY_COORDINATES,
@@ -100,8 +100,8 @@ const CurrentCity = ({ data, user, onSave }) => {
   return (
     <div className="flex flex-col items-center justify-between p-4 md:max-lg:p-3 h-full w-full">
       <Image
-        imageUrl={bgCloudy}
-        alt="Cloudy"
+        imageUrl={getWeatherBg(data.condition)}
+        alt="Weather condition"
         className="absolute top-0 right-0"
       />
       <div className="flex items-center justify-between w-full">
