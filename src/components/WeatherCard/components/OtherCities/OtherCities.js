@@ -23,6 +23,8 @@ const OtherCities = ({ user, onSelectCity }) => {
       const { data } = await axios.get(oneCallURL);
       return {
         name: cityName,
+        lat: coords.lat,
+        lon: coords.lon,
         tempRange: {
           min: data.daily[0].temp.min,
           max: data.daily[0].temp.max,
@@ -43,19 +45,26 @@ const OtherCities = ({ user, onSelectCity }) => {
     setLoading(true);
 
     try {
-      const cityNames = [];
+      let cityNames = [];
+
       if (user) {
         const { data, error } = await supabase
           .from("user_cities")
-          .select("city_name")
+          .select("city_name, lat, lon")
           .eq("user_id", user.id);
+
         if (error) throw error;
-        cityNames.push(...data.map((c) => c.city_name));
+        cityNames = data;
       } else {
-        cityNames.push(...DEFAULT_CITY_NAMES);
+        cityNames = DEFAULT_CITY_NAMES.map((name) => ({
+          city_name: name,
+          ...CITY_COORDINATES[name],
+        }));
       }
 
-      const cityData = await Promise.all(cityNames.map(fetchWeather));
+      const cityData = await Promise.all(
+        cityNames.map((city) => fetchWeather(city.city_name))
+      );
       setCities(cityData.filter(Boolean));
     } catch (err) {
       console.error("Error fetching cities:", err.message);
@@ -69,7 +78,7 @@ const OtherCities = ({ user, onSelectCity }) => {
   }, [user]);
 
   // delete cities
-  const handleDelete = async (cityName) => {
+  const handleDelete = async (city) => {
     if (!user) {
       alert("Please log in to delete cities.");
       return;
@@ -80,12 +89,14 @@ const OtherCities = ({ user, onSelectCity }) => {
         .from("user_cities")
         .delete()
         .eq("user_id", user.id)
-        .eq("city_name", cityName);
+        .eq("lat", city.lat)
+        .eq("lon", city.lon);
 
       if (error) throw error;
 
-      // re-render cities
-      await loadCities();
+      setCities((prev) =>
+        prev.filter((c) => c.lat !== city.lat || c.lon !== city.lon)
+      );
     } catch (error) {
       console.error("Error deleting city:", error.message);
     }
@@ -94,28 +105,21 @@ const OtherCities = ({ user, onSelectCity }) => {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div className="data-testid='other-cities' flex justify-between text-white h-full w-full">
+    <div className="data-testid='other-cities' flex gap-6 px-4 text-white h-full w-full">
       {cities.length > 0 ? (
         cities.map((city, index) => (
-          <div key={index} className="relative">
-            <City
-              imageUrl={getWeatherIcon(city.condition || "Unknown")}
-              name={city.name || "Unknown City"}
-              temperatureRange={{
-                min: city.tempRange?.min || 0,
-                max: city.tempRange?.max || 0,
-              }}
-              className={`bg-${city.name?.replace(" ", "") || "default"}`}
-              onClick={() => onSelectCity(city.name)}
-            />
-            <button
-              className="absolute top-0 right-5 text-slate opacity-30 hover:font-bold hover:opacity-100"
-              onClick={() => handleDelete(city.name)}
-              title={user ? "Delete this city" : "Log in to delete cities"}
-            >
-              x
-            </button>
-          </div>
+          <City
+            key={index}
+            imageUrl={getWeatherIcon(city.condition || "Unknown")}
+            name={city.name || "Unknown City"}
+            temperatureRange={{
+              min: city.tempRange?.min || 0,
+              max: city.tempRange?.max || 0,
+            }}
+            className={`bg-${city.name?.replace(" ", "") || "default"}`}
+            onClick={() => onSelectCity(city.name)}
+            onDelete={() => handleDelete(city)}
+          />
         ))
       ) : (
         <p className="text-blue font-bold mx-4">Let's save a city!</p>
