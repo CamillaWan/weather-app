@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-const SearchBar = ({ setSelectedCoordinates }) => {
+const SearchBar = ({ onSelectCity }) => {
   const [input, setInput] = useState("");
   const [cityOptions, setCityOptions] = useState([]);
   const [selectedCity, setSelectedCity] = useState(null);
@@ -34,7 +34,7 @@ const SearchBar = ({ setSelectedCoordinates }) => {
   const handleSearch = (e) => {
     e.preventDefault(); // Prevent default form submission
     if (selectedCity) {
-      setSelectedCoordinates({
+      onSelectCity({
         lat: selectedCity.lat,
         lon: selectedCity.lon,
         name: selectedCity.name, // ✅ Keep city name for display purposes

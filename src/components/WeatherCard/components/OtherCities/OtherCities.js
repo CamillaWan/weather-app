@@ -117,7 +117,7 @@ const OtherCities = ({ user, onSelectCity }) => {
               max: city.tempRange?.max || 0,
             }}
             className={`bg-${city.name?.replace(" ", "") || "default"}`}
-            onClick={() => onSelectCity(city.name)}
+            onClick={() => onSelectCity(city)}
             onDelete={() => handleDelete(city)}
           />
         ))

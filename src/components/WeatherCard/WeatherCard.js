@@ -4,12 +4,16 @@ import OtherCities from "./components/OtherCities";
 import SearchBar from "./components/SearchBar";
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import { supabase, CITY_COORDINATES } from "../../lib/supabaseClient";
+import { supabase } from "../../lib/supabaseClient";
 
 const WeatherCard = () => {
   const [currentWeather, setCurrentWeather] = useState(null);
   const [forecast, setForecast] = useState(null);
-  const [selectedCity, setSelectedCity] = useState("Brisbane");
+  const [selectedCity, setSelectedCity] = useState({
+    name: "Brisbane",
+    lat: -27.4698,
+    lon: 153.0251,
+  });
   const [refreshKey, setRefreshKey] = useState(0);
   const [user, setUser] = useState(null);
 
@@ -40,17 +44,16 @@ const WeatherCard = () => {
   }, []);
 
   const fetchWeatherData = useCallback(
-    async (cityName) => {
-      const coords = CITY_COORDINATES[cityName];
-      if (!coords) return; // Prevent API call on empty city
+    async (city) => {
+      if (!city || !city.lat || !city.lon) return; // Prevent API call on empty city
 
-      const oneCallURL = `https://api.openweathermap.org/data/3.0/onecall?lat=${coords.lat}&lon=${coords.lon}&exclude=minutely,hourly&units=metric&appid=${API_KEY}`;
+      const oneCallURL = `https://api.openweathermap.org/data/3.0/onecall?lat=${city.lat}&lon=${city.lon}&exclude=minutely,hourly&units=metric&appid=${API_KEY}`;
 
       try {
         const { data } = await axios.get(oneCallURL);
 
         setCurrentWeather({
-          city: cityName,
+          city: city.name,
           temp: data.current.temp,
           tempRange: {
             min: data.daily[0].temp.min,
@@ -113,10 +116,7 @@ const WeatherCard = () => {
         {forecast && <Forecast data={forecast} />}
       </div>
       <div className="row-span-1 col-span-2 p-4 md:max-lg:m-0 md:max-lg:pl-6 md:col-span-3 lg:p-0 lg:m-6">
-        <SearchBar
-          cities={Object.keys(CITY_COORDINATES)}
-          onSelectCity={setSelectedCity}
-        />
+        <SearchBar onSelectCity={setSelectedCity} />
       </div>
       <div className="row-span-2 col-span-2 p-4 md:row-span-2 md:col-span-4 md:max-lg:p-0 md:my-4 md:mr-8">
         <OtherCities
