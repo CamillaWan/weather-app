@@ -7,8 +7,94 @@ import Meta from "./components/Meta";
 import Image from "./components/Image";
 import bgCloudy from "../../../../assets/background/Cloudy_day_background.png";
 import getWeatherIcon from "../../utils/getWeatherIcon/getWeatherIcon";
+import {
+  supabase,
+  CITY_COORDINATES,
+  DEFAULT_CITY_NAMES,
+} from "../../../../lib/supabaseClient";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
-const CurrentCity = ({ data }) => {
+const CurrentCity = ({ data, user, onSave }) => {
+  const [isFavorited, setIsFavorited] = useState(false);
+
+  useEffect(() => {
+    const checkFavorite = async () => {
+      if (!data?.lat || !data?.lon) return;
+
+      if (!user) {
+        const isDefault = DEFAULT_CITY_NAMES.some((name) => {
+          const coords = CITY_COORDINATES[name];
+          return coords.lat === data.lat && coords.lon === data.lon;
+        });
+        setIsFavorited(isDefault);
+        return;
+      }
+
+      const { data: match, error } = await supabase
+        .from("user_cities")
+        .select("id")
+        .eq("user_id", user.id)
+        .eq("lat", data.lat)
+        .eq("lon", data.lon);
+
+      if (error) {
+        console.error("Error checking favorite city:", error.message);
+        setIsFavorited(false);
+      } else {
+        setIsFavorited(match.length > 0);
+      }
+    };
+    checkFavorite();
+  }, [data, user]);
+
+  const handleToggleFavorite = async () => {
+    if (!user) {
+      alert("Please log in to save cities.");
+      return;
+    }
+
+    try {
+      if (isFavorited) {
+        const { error } = await supabase
+          .from("user_cities")
+          .delete()
+          .eq("user_id", user.id)
+          .eq("lat", data.lat)
+          .eq("lon", data.lon);
+        if (error) throw error;
+        setIsFavorited(false);
+        onSave?.();
+      } else {
+        const { data: allCities, error: countError } = await supabase
+          .from("user_cities")
+          .select("*")
+          .eq("user_id", user.id);
+
+        if (countError) throw countError;
+        if (allCities.length >= 4) {
+          alert("You can only save up to 4 cities.");
+          return;
+        }
+
+        const { error: insertError } = await supabase
+          .from("user_cities")
+          .insert({
+            user_id: user.id,
+            city_name: data.city,
+            lat: data.lat,
+            lon: data.lon,
+          });
+
+        if (insertError) throw insertError;
+        setIsFavorited(true);
+        onSave?.();
+      }
+    } catch (error) {
+      console.error("Error toggling favorite city:", error.message);
+    }
+  };
+
   if (!data) return <p>Loading...</p>;
 
   return (
@@ -18,10 +104,21 @@ const CurrentCity = ({ data }) => {
         alt="Cloudy"
         className="absolute top-0 right-0"
       />
-      <Date
-        value={data.dateTime}
-        className="text-slate text-sm sm:text-lg md:text-xxs lg:text-sm xl:text-base"
-      />
+      <div className="flex items-center justify-between w-full">
+        <Date
+          value={data.dateTime}
+          className="text-slate text-sm sm:text-lg md:text-xxs lg:text-sm xl:text-base"
+        />
+        <motion.button
+          whileTap={{ scale: 1.2, rotate: 20 }}
+          whileHover={{ scale: 1.05 }}
+          onClick={handleToggleFavorite}
+          className="absolute top-2 right-4 text-white text-2xl z-20"
+          aria-label="Save city"
+        >
+          {isFavorited ? "★" : "☆"}
+        </motion.button>
+      </div>
       <Name
         value={data.city}
         className="text-white text-2xl sm:3xl font-bold m-2 md:max-lg:text-lg xl:text-3xl md:max-lg:m-0"

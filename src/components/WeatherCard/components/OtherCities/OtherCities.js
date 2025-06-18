@@ -14,17 +14,16 @@ const OtherCities = ({ user, onSelectCity }) => {
   const [cities, setCities] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchWeather = async (cityName) => {
-    const coords = CITY_COORDINATES[cityName];
-    if (!coords) return null; // Prevent API call on empty city
+  const fetchWeather = async ({ city_name, lat, lon }) => {
+    if (!lat || !lon) return null;
 
     try {
-      const oneCallURL = `https://api.openweathermap.org/data/3.0/onecall?lat=${coords.lat}&lon=${coords.lon}&exclude=minutely,hourly&units=metric&appid=${API_KEY}`;
+      const oneCallURL = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly&units=metric&appid=${API_KEY}`;
       const { data } = await axios.get(oneCallURL);
       return {
-        name: cityName,
-        lat: coords.lat,
-        lon: coords.lon,
+        name: city_name,
+        lat,
+        lon,
         tempRange: {
           min: data.daily[0].temp.min,
           max: data.daily[0].temp.max,
@@ -32,9 +31,11 @@ const OtherCities = ({ user, onSelectCity }) => {
         condition: data.current.weather[0].description,
       };
     } catch (error) {
-      console.error(`Error fetching weather for ${cityName}:`, error);
+      console.error(`Error fetching weather for ${city_name}:`, error);
       return {
-        name: cityName,
+        name: city_name,
+        lat,
+        lon,
         tempRange: { min: 0, max: 0 }, // Placeholder for temperature range
         condition: "Unknown", // Placeholder for weather condition
       };
@@ -45,7 +46,7 @@ const OtherCities = ({ user, onSelectCity }) => {
     setLoading(true);
 
     try {
-      let cityNames = [];
+      let cityList = [];
 
       if (user) {
         const { data, error } = await supabase
@@ -54,16 +55,16 @@ const OtherCities = ({ user, onSelectCity }) => {
           .eq("user_id", user.id);
 
         if (error) throw error;
-        cityNames = data;
+        cityList = data;
       } else {
-        cityNames = DEFAULT_CITY_NAMES.map((name) => ({
+        cityList = DEFAULT_CITY_NAMES.map((name) => ({
           city_name: name,
           ...CITY_COORDINATES[name],
         }));
       }
 
       const cityData = await Promise.all(
-        cityNames.map((city) => fetchWeather(city.city_name))
+        cityList.map((city) => fetchWeather(city))
       );
       setCities(cityData.filter(Boolean));
     } catch (err) {
@@ -95,7 +96,7 @@ const OtherCities = ({ user, onSelectCity }) => {
       if (error) throw error;
 
       setCities((prev) =>
-        prev.filter((c) => c.lat !== city.lat || c.lon !== city.lon)
+        prev.filter((c) => !(c.lat === city.lat && c.lon === city.lon))
       );
     } catch (error) {
       console.error("Error deleting city:", error.message);
@@ -109,7 +110,7 @@ const OtherCities = ({ user, onSelectCity }) => {
       {cities.length > 0 ? (
         cities.map((city, index) => (
           <City
-            key={index}
+            key={`${city.lat}-${city.lon}-${index}`}
             imageUrl={getWeatherIcon(city.condition || "Unknown")}
             name={city.name || "Unknown City"}
             temperatureRange={{

@@ -54,6 +54,8 @@ const WeatherCard = () => {
 
         setCurrentWeather({
           city: city.name,
+          lat: city.lat,
+          lon: city.lon,
           temp: data.current.temp,
           tempRange: {
             min: data.daily[0].temp.min,
