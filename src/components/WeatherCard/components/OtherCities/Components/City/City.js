@@ -12,7 +12,7 @@ const City = ({
 }) => {
   return (
     <div
-      className={`${className} opacity-100 h-full w-1/4 bg-cover bg-no-repeat bg-center rounded-3xl flex flex-col justify-center items-center relative`}
+      className={`${className} opacity-100 h-full w-[22%] bg-cover bg-no-repeat bg-center rounded-3xl flex flex-col justify-center items-center relative`}
       onClick={onClick}
     >
       {onDelete && (

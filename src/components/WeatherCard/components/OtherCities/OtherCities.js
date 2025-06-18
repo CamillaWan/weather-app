@@ -105,7 +105,7 @@ const OtherCities = ({ user, onSelectCity }) => {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div className="data-testid='other-cities' flex gap-6 px-4 text-white h-full w-full">
+    <div className="data-testid='other-cities' flex gap-4 px-4 text-white h-full w-full">
       {cities.length > 0 ? (
         cities.map((city, index) => (
           <City
