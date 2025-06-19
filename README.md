@@ -1,36 +1,39 @@
 # Camillas-Weather-App
 
-## Description
+## 🌟Overview
 
-Camilla's Weather App is a weather forecast web application that provides real-time weather information, including:
+A full-stack weather forecast web application that provides real-time weather data and supports user-specific features such as account creation and city favorites.
+Designed to be lightweight, responsive, and API-secure — built entirely by me as an end-to-end portfolio project.
 
-- 🌡 Temperature (current & forecast)
+### 🔍including:
+
+- 🌡 Current temperature & daily temperature range
 - 💧 Humidity
 - 💨 Wind speed
 - 🔆 UV index
 - 🏷 Somatosensory temperature
 - ☁ Weather conditions
 
-Users can search for weather by city name and view forecasts for the next few days to plan ahead.
-
 ## 🚀 Key Features
 
-- Live weather updates 🌎
-- Search by city name 🔍
-- Multi-day forecast 📅
-- Modern UI using React & Tailwind CSS 🎨
+- User Authentication (Sign up / Log in) via Supabase Auth
+- Personalized City Favorites: Add/Delete cities to your list
+- Live Weather Data powered by OpenWeather API (proxied securely)
+- Dynamic UI: Weather-based backgrounds and real-time updates
+- Mobile-Friendly Layout using Tailwind CSS
 
-## 🛠 Technologies
+## 🛠 Tech Stack
 
-- Javascript
-- React
-- Tailwind CSS
-- Weather API
+- Frontend: React, Tailwind CSS
+- Backend: Supabase (Auth + Database), Vercel Serverless Functions
+- External APIs: OpenWeather APIs
+- Deployment: Vercel
 
-## 🔧 Installation & Setup
+## 🌐 Live Demo
 
-This project is bootstrapped with Create React App.
-To run it locally:
+https://camillas-weather-app.vercel.app/
+
+## 🔧 Local Development & Test
 
 1. Clone this repository
 
@@ -45,25 +48,34 @@ cd weather-app
 npm install
 ```
 
-3. Start the development server
+3. Set up your .env file with:
+
+- OpenWeather API key
+- Supabase project URL & anon key
+
+4. Install Vercel CLI (for local API functions):
+
+```bash
+npm install -g vercel
+```
+
+5. Start the development server
+
+- Frontend
 
 ```bash
 npm run start
 ```
 
-This runs the app in development mode. Open http://localhost:3000 to view it in your browser.
-
-4. Build for production
+- optional, to serve API routes locally
 
 ```bash
-npm run build
+vercel dev
 ```
 
-This will generate an optimized build in the build/ folder.
+This runs the app in development mode. Open http://localhost:3000 to view it in your browser.
 
-## 📌 Additional Commands
-
-- Run tests
+6. Run tests
 
 ```bash
 npm test
@@ -71,22 +83,12 @@ npm test
 
 Runs tests in interactive watch mode.
 
-- Eject configuration
+## 🔐 About API Security
 
-```bash
-npm run eject
-```
-
-⚠ This is irreversible! Use this command only if you need to customize Webpack, Babel, etc.
-
-## 📚 Learn More
-
-- [Create React App Docs](https://create-react-app.dev/docs/getting-started/)
-- [React Documentation](https://react.dev/)
-- [Weather API Documentation](https://openweathermap.org/api/one-call-3)
+All external API requests are proxied via Vercel Serverless Functions to prevent exposure of API keys in the frontend. Check the /api/ directory for implementation details.
 
 ## ✨ Notes
 
-This project is **for portfolio and job application purposes**.
-Feel free to explore the source code, but contributions are not required at this time.
+This project was built as part of my job applications, to showcase my ability to deliver a full-stack product independently.
+It reflects my learning journey and hands-on skills with modern web technologies.
 
