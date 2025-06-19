@@ -77,7 +77,7 @@ const OtherCities = ({ user, onSelectCity }) => {
 
   useEffect(() => {
     loadCities();
-  }, [user]);
+  }, [user, loadCities]);
 
   // delete cities
   const handleDelete = async (city) => {
