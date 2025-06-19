@@ -98,7 +98,7 @@ const CurrentCity = ({ data, user, onSave }) => {
   if (!data) return <p>Loading...</p>;
 
   return (
-    <div className="flex flex-col items-center justify-between p-4 md:max-lg:p-3 h-full w-full">
+    <div className="h-full w-full flex flex-col items-center justify-between p-4 md:max-lg:p-3">
       <Image
         imageUrl={getWeatherBg(data.condition)}
         alt="Weather condition"
@@ -121,7 +121,7 @@ const CurrentCity = ({ data, user, onSave }) => {
       </div>
       <Name
         value={data.city}
-        className="text-white text-2xl sm:3xl font-bold m-2 md:max-lg:text-lg xl:text-3xl md:max-lg:m-0"
+        className="text-white w-full whitespace-wrap text-2xl sm:text-3xl font-bold m-2 md:max-lg:text-lg xl:text-3xl md:max-lg:m-0"
       />
       <Temperature
         value={data.temp}
