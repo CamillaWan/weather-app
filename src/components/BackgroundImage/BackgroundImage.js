@@ -8,7 +8,7 @@ const BackgroundImage = ({
     <img
       src={imageUrl}
       alt={alt}
-      className="absolute bottom-0 right-0 z-1 opacity-100"
+      className="absolute bottom-0 right-0 z-0 opacity-100"
     />
     {children}
   </div>

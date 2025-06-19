@@ -86,7 +86,7 @@ const AuthPanel = ({ onLoginSuccess }) => {
   };
 
   return (
-    <div className="w-full max-w-sm mx-auto p-6 mt-10 bg-white rounded shadow">
+    <div className="w-full max-w-sm mx-auto p-6 mt-10 bg-white rounded shadow z-20">
       <h2 className="text-xl font-bold mb-4 text-center">
         {isLogin ? "Login" : "Register"}
       </h2>

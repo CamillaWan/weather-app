@@ -40,7 +40,7 @@ const App = () => {
     <BackgroundImage
       imageUrl={bg}
       alt="cloud"
-      className="w-screen md:h-screen md:min-h-[640px] relative bg-gradient-to-l flex flex-col items-center z-0 opacity-100 font-square"
+      className="w-screen min-h-screen relative bg-gradient-to-l bg-cover flex flex-col items-center z-0 opacity-100 font-square"
     >
       <HeaderBar
         user={user}
