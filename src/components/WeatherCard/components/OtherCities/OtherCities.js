@@ -1,6 +1,6 @@
 import City from "./Components/City/City";
 import getWeatherIcon from "../../utils/getWeatherIcon";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import {
   supabase,
   DEFAULT_CITY_NAMES,
@@ -43,7 +43,7 @@ const OtherCities = ({ user, onSelectCity }) => {
     }
   };
 
-  const loadCities = async () => {
+  const loadCities = useCallback(async () => {
     setLoading(true);
 
     try {
@@ -73,11 +73,11 @@ const OtherCities = ({ user, onSelectCity }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user, setLoading, setCities]);
 
   useEffect(() => {
     loadCities();
-  }, [user, loadCities]);
+  }, [loadCities]);
 
   // delete cities
   const handleDelete = async (city) => {
