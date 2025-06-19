@@ -8,7 +8,7 @@ import {
 } from "../../../../lib/supabaseClient";
 import axios from "axios";
 
-const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
+const API_PROXY_URL = "/api/weather-proxy";
 
 const OtherCities = ({ user, onSelectCity }) => {
   const [cities, setCities] = useState([]);
@@ -18,8 +18,9 @@ const OtherCities = ({ user, onSelectCity }) => {
     if (!lat || !lon) return null;
 
     try {
-      const oneCallURL = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly&units=metric&appid=${API_KEY}`;
-      const { data } = await axios.get(oneCallURL);
+      const { data } = await axios.get(API_PROXY_URL, {
+        params: { lat, lon },
+      });
       return {
         name: city_name,
         lat,

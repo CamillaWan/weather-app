@@ -17,7 +17,7 @@ const WeatherCard = () => {
   const [refreshKey, setRefreshKey] = useState(0);
   const [user, setUser] = useState(null);
 
-  const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
+  const API_PROXY_URL = "/api/weather-proxy";
 
   useEffect(() => {
     const getSession = async () => {
@@ -47,10 +47,10 @@ const WeatherCard = () => {
     async (city) => {
       if (!city || !city.lat || !city.lon) return; // Prevent API call on empty city
 
-      const oneCallURL = `https://api.openweathermap.org/data/3.0/onecall?lat=${city.lat}&lon=${city.lon}&exclude=minutely,hourly&units=metric&appid=${API_KEY}`;
-
       try {
-        const { data } = await axios.get(oneCallURL);
+        const { data } = await axios.get(API_PROXY_URL, {
+          params: { lat: city.lat, lon: city.lon },
+        });
 
         setCurrentWeather({
           city: city.name,
@@ -92,7 +92,7 @@ const WeatherCard = () => {
         console.error("Error fetching weather data:", error);
       }
     },
-    [API_KEY]
+    [API_PROXY_URL]
   );
 
   useEffect(() => {

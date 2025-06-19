@@ -6,14 +6,10 @@ const SearchBar = ({ onSelectCity }) => {
   const [cityOptions, setCityOptions] = useState([]);
   const [selectedCity, setSelectedCity] = useState(null);
 
-  const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
-
   const fetchCities = async (query) => {
     if (query.length < 3) return; // Minimum 3 characters for search
     try {
-      const response = await axios.get(
-        `https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${API_KEY}`
-      );
+      const response = await axios.get(`/api/geo-proxy?q=${query}`);
       setCityOptions(response.data || []);
     } catch (error) {
       console.error("Error fetching city options:", error);
