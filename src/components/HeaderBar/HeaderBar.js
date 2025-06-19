@@ -3,7 +3,7 @@ const HeaderBar = ({ user, showAuth, onLoginClick, onLogout, onCancel }) => {
 
   return (
     <header className="w-full flex justify-between items-center px-6 py-3 text-white shadow">
-      <h1 className=" text-base md:text-lg font-bold tracking-wide">
+      <h1 className=" text-sm md:text-lg font-bold tracking-wide">
         Camilla's Weather App
       </h1>
 
@@ -16,11 +16,11 @@ const HeaderBar = ({ user, showAuth, onLoginClick, onLogout, onCancel }) => {
             Back
           </button>
         ) : user ? (
-          <div className="flex items-center text-sm md:text-base space-x-4">
+          <div className="flex items-center text-sm md:text-base">
             <span>Welcome, {name}</span>
             <button
               onClick={onLogout}
-              className="text-white text-sm md:text-base px-3 py-1 rounded hover:underline"
+              className="text-white text-sm md:text-base px-2 py-1 rounded hover:underline"
             >
               Logout
             </button>
