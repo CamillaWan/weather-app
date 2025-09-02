@@ -3,7 +3,7 @@
 ## 🌟Overview
 
 A full-stack weather forecast web application that provides real-time weather data and supports user-specific features such as account creation and city favorites.
-Designed to be lightweight, responsive, and API-secure — built entirely by me as an end-to-end portfolio project.
+Designed to be lightweight, responsive, and API-secure, built as an end-to-end portfolio project.
 
 ### 🔍including:
 
