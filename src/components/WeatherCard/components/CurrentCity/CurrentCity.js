@@ -94,7 +94,7 @@ const CurrentCity = ({ data, user, onSave }) => {
       console.error("Error toggling favorite city:", error.message);
     }
   };
-
+  console.log(data.dateTime);
   if (!data) return <p>Loading...</p>;
 
   return (
@@ -106,7 +106,7 @@ const CurrentCity = ({ data, user, onSave }) => {
       />
       <div className="flex items-center justify-between w-full">
         <Date
-          value={data.date}
+          value={data.dateTime}
           className="text-slate text-sm sm:text-lg md:text-xxs lg:text-sm xl:text-base"
         />
         <motion.button
