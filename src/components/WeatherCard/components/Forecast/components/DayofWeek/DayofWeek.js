@@ -14,7 +14,10 @@ const DayofWeek = ({ imageUrl, day, date, temperatureRange }) => {
         className="block sm:hidden font-bold text-sm"
         value={day.slice(0, 3)}
       />
-      <Date value={date} className="hidden md:max-lg:text-sm lg:text-base" />
+      <Date
+        value={date}
+        className="hidden md:block md:max-lg:text-sm lg:text-base"
+      />
       <Date
         value={date.slice(0, 3)}
         className="block text-sm sm:text-base md:hidden"
