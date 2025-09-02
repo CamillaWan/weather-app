@@ -17,6 +17,7 @@ const City = ({
     >
       {onDelete && (
         <button
+          aria-label="Remove this city"
           className="absolute top-0 right-4 text-white opacity-40 hover:opacity-100 hover:font-bold z-10"
           onClick={(e) => {
             e.stopPropagation(); // Prevent click from propagating to parent

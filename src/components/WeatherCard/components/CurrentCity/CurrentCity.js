@@ -106,7 +106,7 @@ const CurrentCity = ({ data, user, onSave }) => {
       />
       <div className="flex items-center justify-between w-full">
         <Date
-          value={data.dateTime}
+          value={data.date}
           className="text-slate text-sm sm:text-lg md:text-xxs lg:text-sm xl:text-base"
         />
         <motion.button
@@ -114,7 +114,7 @@ const CurrentCity = ({ data, user, onSave }) => {
           whileHover={{ scale: 1.05 }}
           onClick={handleToggleFavorite}
           className="absolute top-2 right-4 text-white text-2xl z-20"
-          aria-label="Save city"
+          aria-label="Save city or remove from saved cities"
         >
           {isFavorited ? "★" : "☆"}
         </motion.button>

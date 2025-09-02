@@ -44,7 +44,11 @@ const SearchBar = ({ onSelectCity }) => {
         onSubmit={handleSearch}
         className="flex bg-white rounded-lg shadow-xl h-8 w-full"
       >
+        <label for="search-city" class="sr-only">
+          Search city
+        </label>
         <input
+          id="search-city"
           type="text"
           value={input}
           onChange={handleInputChange}
