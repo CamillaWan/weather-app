@@ -16,7 +16,7 @@ const DayofWeek = ({ imageUrl, day, date, temperatureRange }) => {
       />
       <Date value={date} className="hidden md:max-lg:text-sm lg:text-base" />
       <Date
-        value={date.slice(3)}
+        value={date.slice(0, 3)}
         className="block text-sm sm:text-base md:hidden"
       />
       <WeatherIcon imageUrl={imageUrl} className="px-2" />
