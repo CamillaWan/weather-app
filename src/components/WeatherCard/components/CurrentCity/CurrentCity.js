@@ -107,7 +107,11 @@ const CurrentCity = ({ data, user, onSave }) => {
       <div className="flex items-center justify-between w-full">
         <Date
           value={data.dateTime}
-          className="text-slate text-sm sm:text-lg md:text-xxs lg:text-sm xl:text-base"
+          className="hidden xl:block text-base text-slate "
+        />
+        <Date
+          value={data.shortDateTime}
+          className="block text-slate text-sm sm:text-lg md:text-xxs lg:text-sm xl:hidden"
         />
         <motion.button
           whileTap={{ scale: 1.2, rotate: 20 }}
