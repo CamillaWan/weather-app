@@ -68,7 +68,7 @@ const WeatherCard = () => {
           feelsLike: data.current.feels_like,
           dateTime: new Date(data.current.dt * 1000).toLocaleString("en-GB", {
             day: "numeric",
-            month: "short",
+            month: "long",
             weekday: "short",
             hour: "2-digit",
             minute: "2-digit",
