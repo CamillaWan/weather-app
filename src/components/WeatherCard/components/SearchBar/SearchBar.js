@@ -36,6 +36,7 @@ const SearchBar = ({ onSelectCity }) => {
         name: selectedCity.name, // ✅ Keep city name for display purposes
       });
     }
+    setInput(""); // Clear input field
   };
 
   return (
