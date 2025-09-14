@@ -1,8 +1,9 @@
 import Name from "../../../../../Name";
 import TemperatureRange from "../../../../../TemperatureRange";
 import WeatherIcon from "../../../../../WeatherIcon";
+import { memo } from "react";
 
-const City = React.memo(
+const City = memo(
   ({ className, imageUrl, name, temperatureRange, onClick, onDelete }) => {
     return (
       <div
