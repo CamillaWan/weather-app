@@ -4,7 +4,15 @@ import WeatherIcon from "../../../../../WeatherIcon";
 import { memo } from "react";
 
 const City = memo(
-  ({ className, imageUrl, name, temperatureRange, onClick, onDelete }) => {
+  ({
+    className,
+    imageUrl,
+    name,
+    temperatureRange,
+    onClick,
+    onDelete,
+    onSave,
+  }) => {
     return (
       <div
         className={`${className} opacity-100 h-full w-[22%] bg-cover bg-no-repeat bg-center rounded-3xl flex flex-col justify-center items-center relative`}
