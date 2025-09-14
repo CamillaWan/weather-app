@@ -17,6 +17,7 @@ const City = memo(
             onClick={(e) => {
               e.stopPropagation(); // Prevent click from propagating to parent
               onDelete();
+              onSave?.();
             }}
           >
             &times;

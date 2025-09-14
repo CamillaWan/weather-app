@@ -147,6 +147,7 @@ const WeatherCard = () => {
           currentCity={selectedCity}
           onSelectCity={setSelectedCity}
           user={user}
+          onSave={handleCityUpdate}
           key={refreshKey}
         />
       </section>

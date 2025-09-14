@@ -121,6 +121,7 @@ const OtherCities = ({ user, onSelectCity }) => {
             className={`bg-${city.name?.replace(" ", "") || "default"}`}
             onClick={() => onSelectCity(city)}
             onDelete={() => handleDelete(city)}
+            onSave={onSave}
           />
         ))
       ) : (
