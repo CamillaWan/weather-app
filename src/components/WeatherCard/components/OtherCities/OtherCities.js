@@ -109,9 +109,9 @@ const OtherCities = ({ user, onSelectCity }) => {
   return (
     <div className="data-testid='other-cities' flex gap-4 px-4 text-white h-full w-full">
       {cities.length > 0 ? (
-        cities.map((city, index) => (
+        cities.map((city) => (
           <City
-            key={`${city.lat}-${city.lon}-${index}`}
+            key={`${city.lat}-${city.lon}`}
             imageUrl={getWeatherIcon(city.condition || "Unknown")}
             name={city.name || "Unknown City"}
             temperatureRange={{
