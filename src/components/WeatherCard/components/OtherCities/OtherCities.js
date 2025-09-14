@@ -10,7 +10,7 @@ import axios from "axios";
 
 const API_PROXY_URL = "/api/weather-proxy";
 
-const OtherCities = ({ user, onSelectCity }) => {
+const OtherCities = ({ user, onSelectCity, onSave }) => {
   const [cities, setCities] = useState([]);
   const [loading, setLoading] = useState(true);
 
