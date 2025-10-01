@@ -68,7 +68,6 @@ const OtherCities = ({ user, onSelectCity, onSave }) => {
         cityList.map((city) => fetchWeather(city))
       );
       setCities(cityData.filter(Boolean));
-      onSave?.();
     } catch (err) {
       console.error("Error fetching cities:", err.message);
     } finally {
