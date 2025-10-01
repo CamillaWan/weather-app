@@ -15,7 +15,7 @@ import {
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-const CurrentCity = ({ data, user, onSave }) => {
+const CurrentCity = ({ data, user, onSave, refreshKey }) => {
   const [isFavorited, setIsFavorited] = useState(false);
 
   useEffect(() => {
