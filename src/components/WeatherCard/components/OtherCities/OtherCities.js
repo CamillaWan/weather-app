@@ -68,6 +68,7 @@ const OtherCities = ({ user, onSelectCity, onSave }) => {
         cityList.map((city) => fetchWeather(city))
       );
       setCities(cityData.filter(Boolean));
+      onSave?.();
     } catch (err) {
       console.error("Error fetching cities:", err.message);
     } finally {
@@ -99,6 +100,7 @@ const OtherCities = ({ user, onSelectCity, onSave }) => {
       setCities((prev) =>
         prev.filter((c) => !(c.lat === city.lat && c.lon === city.lon))
       );
+      onSave?.();
     } catch (error) {
       console.error("Error deleting city:", error.message);
     }

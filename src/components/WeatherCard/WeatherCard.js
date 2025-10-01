@@ -127,6 +127,7 @@ const WeatherCard = () => {
             data={currentWeather}
             user={user}
             onSave={handleCityUpdate}
+            key={refreshKey}
           />
         )}
       </section>

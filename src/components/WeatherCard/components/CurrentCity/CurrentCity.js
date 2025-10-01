@@ -46,7 +46,7 @@ const CurrentCity = ({ data, user, onSave }) => {
       }
     };
     checkFavorite();
-  }, [data, user]);
+  }, [data, user, refreshKey]);
 
   const handleToggleFavorite = async () => {
     if (!user) {
