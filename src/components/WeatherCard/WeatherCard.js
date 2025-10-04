@@ -137,9 +137,9 @@ const WeatherCard = () => {
       >
         {forecast && <Forecast data={forecast} />}
       </section>
-      <section className="row-span-1 col-span-2 p-4 md:max-lg:m-0 md:max-lg:pl-6 md:col-span-3 lg:p-0 lg:m-6">
+      <div className="row-span-1 col-span-2 p-4 md:max-lg:m-0 md:max-lg:pl-6 md:col-span-3 lg:p-0 lg:m-6">
         <SearchBar onSelectCity={setSelectedCity} />
-      </section>
+      </div>
       <section
         aria-label="Other cities"
         className="row-span-2 col-span-2 p-4 md:row-span-2 md:col-span-4 md:max-lg:p-0 md:my-4 md:mr-8"
