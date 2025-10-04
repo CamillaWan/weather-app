@@ -44,10 +44,6 @@ const CurrentCity = ({ data, user, onSave, refreshKey }) => {
       } else {
         setIsFavorited(match.length > 0);
       }
-      const newState = match.length > 0;
-      if (newState !== isFavorited) {
-        setIsFavorited(newState);
-      }
     };
     checkFavorite();
   }, [data, user, refreshKey]);
