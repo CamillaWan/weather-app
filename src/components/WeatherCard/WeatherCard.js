@@ -145,7 +145,6 @@ const WeatherCard = () => {
         className="row-span-2 col-span-2 p-4 md:row-span-2 md:col-span-4 md:max-lg:p-0 md:my-4 md:mr-8"
       >
         <OtherCities
-          currentCity={selectedCity}
           onSelectCity={setSelectedCity}
           user={user}
           onSave={handleCityUpdate}

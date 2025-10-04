@@ -10,7 +10,7 @@ import axios from "axios";
 
 const API_PROXY_URL = "/api/weather-proxy";
 
-const OtherCities = ({ user, onSelectCity, onSave, currentCity }) => {
+const OtherCities = ({ user, onSelectCity, onSave }) => {
   const [cities, setCities] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -99,9 +99,7 @@ const OtherCities = ({ user, onSelectCity, onSave, currentCity }) => {
       setCities((prev) =>
         prev.filter((c) => !(c.lat === city.lat && c.lon === city.lon))
       );
-      if (city.lat === currentCity.lat && city.lon === currentCity.lon) {
-        onSave?.();
-      }
+      onSave?.();
     } catch (error) {
       console.error("Error deleting city:", error.message);
     }
